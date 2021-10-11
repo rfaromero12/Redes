@@ -59,7 +59,7 @@ int main (int argc, char **argv )
 			para poder solicitarle un servicio.
    		----------------------------------------------------------------------*/
 		Servidor.sin_family = AF_INET;
-		Servidor.sin_port = htons(3160);
+		Servidor.sin_port = htons(2000);
 		Servidor.sin_addr.s_addr =  inet_addr(argv[1]);
   	 	Longitud_Servidor = sizeof(Servidor);
 	

@@ -49,11 +49,11 @@ int main(int args,char **argv){
     //Rellenamos la estructura 
     Servidor.sin_family = AF_INET;
     Servidor.sin_addr.s_addr = htonl(INADDR_ANY);      //inet_addr(   );
-    Servidor.sin_port = htons(3160);
+    Servidor.sin_port = htons(2000);
 
 
     //Asociamos puerto al descriptor
-    if (bind(Descriptor_Servidor,(struct sockaddr_in *)&Servidor, &longitudCliente) == -1)
+    if (bind(Descriptor_Servidor,(struct sockaddr_in *)&Servidor, sizeof(Servidor)) == -1)
     {
         printf("No se pudo asociar el socket a un puerto\n");
         close(Descriptor_Servidor);
