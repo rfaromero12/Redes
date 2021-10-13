@@ -34,7 +34,9 @@ int main(int args,char **argv){
     //Datos server
     struct sockaddr_in Servidor;
     int Descriptor_Servidor;
-
+    fd_set rset;
+    
+    
     //Datos cliente
     struct sockaddr_in Cliente;
     socklen_t longitudCliente;
@@ -51,6 +53,8 @@ int main(int args,char **argv){
     Servidor.sin_addr.s_addr = htonl(INADDR_ANY);      //inet_addr(   );
     Servidor.sin_port = htons(2000);
 
+    FD_ZERO(&rset);
+    FD_SET(Descriptor_Servidor,&rset);
 
     //Asociamos puerto al descriptor
     if (bind(Descriptor_Servidor,(struct sockaddr_in *)&Servidor, sizeof(Servidor)) == -1)

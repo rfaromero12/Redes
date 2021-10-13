@@ -28,8 +28,8 @@ int main (int argc, char **argv )
 	timeout.tv_usec = 0;
 	
 	//Inicializar los conjuntos fd_set
-	FD_ZERO(&lectura);
-	FD_SET(0,&lectura);
+	
+	
 
 		/*---------------------------------------------------- 
 			Descriptor del socket y buffer para datos 
@@ -53,8 +53,8 @@ int main (int argc, char **argv )
 			printf ("No se puede abrir el socket cliente\n");
     			exit (-1);	
 		}
-
- 		/*---------------------------------------------------------------------
+			FD_ZERO(&lectura);
+			FD_SET(Socket_Cliente,&lectura); 		/*---------------------------------------------------------------------
 			Necesitamos una estructura con la informaci\ufffdn del Servidor
 			para poder solicitarle un servicio.
    		----------------------------------------------------------------------*/
@@ -85,7 +85,7 @@ int main (int argc, char **argv )
 		}
     	else
 		{
-             salida = select(1,&lectura,NULL,NULL,&timeout);
+             salida = select(Socket_Cliente + 1,&lectura,NULL,NULL,&timeout);
         	if(salida == -1)
     	{
 	    	printf("Se ha producido un error en select\n");
@@ -95,8 +95,8 @@ int main (int argc, char **argv )
 		    printf("Se ha agotado el tiempo\n");
 
 	    }
-	    else{
-            
+	    else if(FD_ISSET(Socket_Cliente,&lectura)){
+            printf("hola\n");
 			int recibido = recvfrom (Socket_Cliente, (char *)&Datos, sizeof(Datos), 0,
 			(struct sockaddr *) &Servidor, &Longitud_Servidor);
 			
